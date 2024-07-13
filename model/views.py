@@ -115,7 +115,7 @@ class Preprocessing_read_csv:
         df = pd.read_csv(file_path)
         return df
     def x_test_r_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_r_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_r_03.csv')
         df = pd.read_csv(file_path)
         return df
     def y_train_r_04(self):
@@ -123,7 +123,7 @@ class Preprocessing_read_csv:
         df = pd.read_csv(file_path)
         return df
     def y_test_r_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_r_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_r_03.csv')
         df = pd.read_csv(file_path)
         return df
     def x_train_r_05(self):
@@ -131,7 +131,7 @@ class Preprocessing_read_csv:
         df = pd.read_csv(file_path)
         return df
     def x_test_r_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_r_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_r_03.csv')
         df = pd.read_csv(file_path)
         return df
     def y_train_r_05(self):
@@ -139,55 +139,55 @@ class Preprocessing_read_csv:
         df = pd.read_csv(file_path)
         return df
     def y_test_r_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_r_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_r_03.csv')
         df = pd.read_csv(file_path)
         return df
     def x_train_m_03(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_m_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_smote_2060.csv')
         df = pd.read_csv(file_path)
         return df
     def x_test_m_03(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_m_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     def y_train_m_03(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_m_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_smote_2060.csv')
         df = pd.read_csv(file_path)
         return df
     def y_test_m_03(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_m_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     def x_train_m_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_m_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_smote_1716.csv')
         df = pd.read_csv(file_path)
         return df
     def x_test_m_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_m_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     def y_train_m_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_m_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_smote_1716.csv')
         df = pd.read_csv(file_path)
         return df
     def y_test_m_04(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_m_04.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     def x_train_m_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_m_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_train_smote_1430.csv')
         df = pd.read_csv(file_path)
         return df
     def x_test_m_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_m_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\X_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     def y_train_m_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_m_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_train_smote_1430.csv')
         df = pd.read_csv(file_path)
         return df
     def y_test_m_05(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_m_05.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\y_test_smote.csv')
         df = pd.read_csv(file_path)
         return df
     
@@ -216,12 +216,12 @@ def training(request):
         best_model_r04 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_04, y_train_r_04)
         best_model_r05 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_05, y_train_r_05)
         
-        pickle.dump(best_model_r03, open('model_r3_b.pkl', 'wb'))
-        pickle.dump(best_model_r04, open('model_r4_b.pkl', 'wb'))
-        pickle.dump(best_model_r05, open('model_r5_b.pkl', 'wb'))
-        pickle.dump(best_model_m03, open('model_m3_b.pkl', 'wb'))
-        pickle.dump(best_model_m04, open('model_m4_b.pkl', 'wb'))
-        pickle.dump(best_model_m05, open('model_m5_b.pkl', 'wb'))
+        pickle.dump(best_model_r03, open('model_r03.pkl', 'wb'))
+        pickle.dump(best_model_r04, open('model_r04.pkl', 'wb'))
+        pickle.dump(best_model_r05, open('model_r05.pkl', 'wb'))
+        pickle.dump(best_model_m03, open('model_m03.pkl', 'wb'))
+        pickle.dump(best_model_m04, open('model_m04.pkl', 'wb'))
+        pickle.dump(best_model_m05, open('model_m05.pkl', 'wb'))
 
         title = "Training Page"
         messages.success(request, 'Model berhasil di pickle!')
@@ -233,13 +233,13 @@ def training(request):
 @login_required(login_url='login')
 def testing(request):
     if 'test' in request.POST:
-        model_r03 = pickle.load(open('model_r3.pkl', 'rb'))
-        model_r04 = pickle.load(open('model_r4.pkl', 'rb'))
-        model_r05 = pickle.load(open('model_r5.pkl', 'rb'))
+        model_r03 = pickle.load(open('model_r03.pkl', 'rb'))
+        model_r04 = pickle.load(open('model_r04.pkl', 'rb'))
+        model_r05 = pickle.load(open('model_r05.pkl', 'rb'))
 
-        model_m03 = pickle.load(open('model_m3.pkl', 'rb'))
-        model_m04 = pickle.load(open('model_m4.pkl', 'rb'))
-        model_m05 = pickle.load(open('model_m5.pkl', 'rb'))
+        model_m03 = pickle.load(open('model_m03.pkl', 'rb'))
+        model_m04 = pickle.load(open('model_m04.pkl', 'rb'))
+        model_m05 = pickle.load(open('model_m05.pkl', 'rb'))
 
         y_pred_r03 = model_r03.predict(Preprocessing_read_csv().x_test_r_03())
         y_pred_r04 = model_r04.predict(Preprocessing_read_csv().x_test_r_04())
