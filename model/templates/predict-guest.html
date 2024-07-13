@@ -1,0 +1,252 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Klasifikasi Kualitas Padi Organik</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="{% static 'assetss/img/favicon.png' %}" rel="icon" />
+    <link href="{% static 'assetss/img/logo.png' %}" rel="apple-touch-icon" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assetss/vendor/aos/aos.css' %}" rel="stylesheet" />
+    <link href="{% static 'assetss/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assetss/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'assetss/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assetss/vendor/remixicon/remixicon.css' %}" rel="stylesheet" />
+    <link href="{% static 'assetss/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assetss/css/style.css' %}" rel="stylesheet" />
+
+    <!-- =======================================================
+  * Template Name: FlexStart
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Updated: Mar 17 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="{% static 'assetss/img/logo.png' %}" alt="" />
+          <span>WKKPO</span>
+        </a>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#portfolio">About</a></li>
+            <li><a class="nav-link scrollto" href="#about">Klasifikasi</a></li>
+            <!-- <li><a class="nav-link scrollto" href="#services">Upload</a></li> -->
+            <li><a class="getstarted scrollto" href="{% url 'login' %}">Login</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 d-flex flex-column justify-content-center">
+            <h1 data-aos="fade-up">Website Klasifikasi Kualitas Padi Organik</h1>
+            <div data-aos="fade-up" data-aos-delay="600">
+              <div class="text-center text-lg-start">
+                <ul>
+                  <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                    <span>Mulai Klasifikasi</span>
+                    <i class="bi bi-arrow-right"></i>
+                  </a>
+                  <a href="{% url 'login' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                    <span>Login</span>
+                    <i class="bi bi-arrow-right"></i>
+                  </a>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+            <img src="{% static 'assetss/img/hero-img.png' %}" class="img-fluid" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Hero -->
+
+    <main id="main">
+      <!-- ======= Contact Section ======= -->
+      <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+          <header class="section-header">
+            <p>Klasifikasikan Padi</p>
+          </header>
+          <div class="row gy-4">
+            <div class="col">
+              <form action="{% url 'prediction_guest' %}" method="post" class="form" id="myForm">
+                {% csrf_token %}
+                <div class="row gy-4">
+                  <div class="col-md-6">
+                    <select name="Varietas" id="Varietas" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Varietas</option>
+                      <option value="0">Beras Hitam</option>
+                      <option value="3">Ciheran</option>
+                      <option value="2">IR 64</option>
+                      <option value="4">Mi Kongga</option>
+                      <option value="1">Beras Merah</option>
+                      <option value="5">Pandan Wangi</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <select name="Warna" id="Warna" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Warna</option>
+                      <option value="2">Merah</option>
+                      <option value="3">Putih</option>
+                      <option value="0">Coklat</option>
+                      <option value="1">Hitam</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <select name="rasa" id="rasa" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Rasa</option>
+                      <option value="0">Pulen</option>
+                      <option value="1">Sangat Pulen</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <select name="Musim" id="Musim" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Musim</option>
+                      <option value="0">Hujan</option>
+                      <option value="1">Kemarau</option>
+                    </select>                  
+                  </div>
+
+                  <div class="col-md-6">
+                    <select name="Penyakit" id="Penyakit" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Penyakit</option>
+                      <option value="0">Burung</option>
+                      <option value="1">Penggerek Batang</option>
+                      <option value="2">Tikus</option>
+                      <option value="3">Wereng Hijau</option>
+                      <option value="4">Wereng Coklat</option>
+                    </select>                  
+                  </div>
+
+                  <div class="col-md-6">
+                    <select name="teknik" id="teknik" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih Teknik</option>
+                      <option value="0">Jajar Legowo</option>
+                      <option value="1">SRI</option>
+                    </select>                   
+                  </div>
+
+                  <div class="col-md-6">
+                    <select name="PH" id="PH" data-control="select2" class="form-select form-select-solid form-select-lg fw-bold" required>
+                      <option hidden>Pilih PH</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>                     
+                  </div>
+
+                  <div class="col-md-6">
+                    <input type="number" step="any" class="form-select form-select-solid form-select-lg fw-bold" id="boron" name="boron" placeholder="Masukkan nilai boron" step="any" required />
+                  </div>
+
+                  <div class="col-md-6">
+                    <input type="number" step="any" class="form-select form-select-solid form-select-lg fw-bold" name="fosfor" placeholder="Masukkan nilai fosfor" step="any" required />
+                  </div>
+
+                  <div class="col-md-12">
+                    <div id="hasil-klasifikasi" class="alert alert-danger" role="alert" style="display: none">
+                      <strong>Hasil Klasifikasi: {{ prediction }}</strong>
+                      <span id="grade-mutu"></span>
+                    </div>
+                  </div>
+
+                    <button class="btn btn-primary" name="predict" type="submit">Klasifikasikan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Contact Section
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+              <a href="index.html" class="logo d-flex align-items-center">
+                <img src="assetss/img/logo.png" alt="" />
+                <span>WKKPO</span>
+              </a>
+              <p>Website ini merupakan website untuk program aplikasi klasifikasi kualitas mutu padi organik untuk menyelesaikan skripsi</p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>FlexStart</span></strong
+          >. All Rights Reserved
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assetss/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'assetss/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assetss/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assetss/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assetss/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assetss/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assetss/vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assetss/js/main.js' %}"></script>
+  </body>
+</html>

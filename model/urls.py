@@ -6,6 +6,7 @@ urlpatterns = [
     path('login', views.login_view, name='login'),
     path('register', views.register, name='register'),
     path('logout', views.logout_view, name='logout'),
+    path('guest-predict-page', views.render_predict_guest, name='guest_predict_page'),
     path('prediction-guest', views.prediction_real_for_guest, name='prediction_guest'),
     
     path('home', views.adminIndex, name='home'),

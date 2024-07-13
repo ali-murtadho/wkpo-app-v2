@@ -49,7 +49,7 @@
           <ul>
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#portfolio">About</a></li>
-            <li><a class="nav-link scrollto" href="#about">Klasifikasi</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'guest_predict_page' %}">Klasifikasi</a></li>
             <!-- <li><a class="nav-link scrollto" href="#services">Upload</a></li> -->
             <li><a class="getstarted scrollto" href="{% url 'login' %}">Login</a></li>
           </ul>
@@ -69,7 +69,7 @@
             <div data-aos="fade-up" data-aos-delay="600">
               <div class="text-center text-lg-start">
                 <ul>
-                  <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                  <a href="{% url 'guest_predict_page' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                     <span>Mulai Klasifikasi</span>
                     <i class="bi bi-arrow-right"></i>
                   </a>
@@ -380,7 +380,8 @@
               <!-- Index(['Varietas', 'Warna', 'rasa', 'teknik', 'Musim', 'Penyakit',
        'Kategori_Boron', 'Kategori_Fosfor', 'Kategori_PH', 'Grade_mutu'],
       dtype='object') -->
-              <form action="/prediction-guest" method="post" class="php-email-form">
+              <form action="#" method="post" class="php-email-form">
+                {% csrf_token %}
                 <div class="row gy-4">
                   <div class="col-md-6">
                     <select name="Varietas" id="Varietas" class="form-control" required>
@@ -455,21 +456,13 @@
                   <div class="col-md-6">
                     <input type="number" class="form-control" name="fosfor" placeholder="Masukkan nilai fosfor" step="any" required />
                   </div>
-
                   <div class="col-md-12">
-                    <div id="hasil-klasifikasi" class="alert alert-danger" role="alert" style="display: none;">
+                    <div id="hasil-klasifikasi" class="alert alert-danger" role="alert" style="display: none">
                       <strong>Hasil Klasifikasi: {{ prediction }}</strong>
                       <span id="grade-mutu"></span>
                     </div>
                   </div>
-                  
-                  <div class="col-md-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
                     <button name="predict" type="submit">Klasifikasikan</button>
-                  </div>
                 </div>
               </form>
             </div>
@@ -534,5 +527,15 @@
 
     <!-- Template Main JS File -->
     <script src="{% static 'assetss/js/main.js' %}"></script>
+    <script>
+      // Script to handle the display of the prediction result
+      document.addEventListener("DOMContentLoaded", function() {
+          const hasilKlasifikasi = document.getElementById('hasil-klasifikasi');
+          if (hasilKlasifikasi.textContent.trim() !== "") {
+              hasilKlasifikasi.style.display = 'block';
+          }
+      });
+  </script>
+
   </body>
 </html>

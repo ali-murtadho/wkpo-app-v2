@@ -216,12 +216,12 @@ def training(request):
         best_model_r04 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_04, y_train_r_04)
         best_model_r05 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_05, y_train_r_05)
         
-        pickle.dump(best_model_r03, open('model_r3.pkl', 'wb'))
-        pickle.dump(best_model_r04, open('model_r4.pkl', 'wb'))
-        pickle.dump(best_model_r05, open('model_r5.pkl', 'wb'))
-        pickle.dump(best_model_m03, open('model_m3.pkl', 'wb'))
-        pickle.dump(best_model_m04, open('model_m4.pkl', 'wb'))
-        pickle.dump(best_model_m05, open('model_m5.pkl', 'wb'))
+        pickle.dump(best_model_r03, open('model_r3_b.pkl', 'wb'))
+        pickle.dump(best_model_r04, open('model_r4_b.pkl', 'wb'))
+        pickle.dump(best_model_r05, open('model_r5_b.pkl', 'wb'))
+        pickle.dump(best_model_m03, open('model_m3_b.pkl', 'wb'))
+        pickle.dump(best_model_m04, open('model_m4_b.pkl', 'wb'))
+        pickle.dump(best_model_m05, open('model_m5_b.pkl', 'wb'))
 
         title = "Training Page"
         messages.success(request, 'Model berhasil di pickle!')
@@ -591,7 +591,6 @@ def prediction(request):
             prediction=prediction_class
         )
         result.save()
-        # Prepare the context for rendering
         context = {
             'varietas': varietas_mapping[varietas],
             'warna': warna_mapping[warna],
@@ -608,6 +607,9 @@ def prediction(request):
     results = ClassificationResult.objects.all()
     context['results'] = results
     return render(request, 'klasifikasi.html', context)
+
+def render_predict_guest(request):
+    return render(request, 'predict-guest.html')
 
 def prediction_real_for_guest(request):
     varietas_mapping = {
@@ -663,30 +665,27 @@ def prediction_real_for_guest(request):
         3: "Kelas D"
     }
 
-    if 'predict' in request.POST:
-        varietas = request.POST['Varietas']
-        warna = request.POST['Warna']
-        rasa = request.POST['rasa']
-        musim = request.POST['Musim']
-        penyakit = request.POST['Penyakit']
-        teknik = request.POST['teknik']
-        ph = request.POST['PH']
-        boron = request.POST['boron']
-        fosfor = request.POST['fosfor']
+    if request.method == 'POST' and 'predict' in request.POST:
+            varietas = request.POST['Varietas']
+            warna = request.POST['Warna']
+            rasa = request.POST['rasa']
+            musim = request.POST['Musim']
+            penyakit = request.POST['Penyakit']
+            teknik = request.POST['teknik']
+            ph = request.POST['PH']
+            boron = request.POST['boron']
+            fosfor = request.POST['fosfor']
 
-        # Combine the values into a single array
-        # Varietas,fosfor,boron,Warna,rasa,teknik,Musim,Penyakit,PH
-        data = np.array([[float(varietas), float(fosfor), float(boron), float(warna), float(rasa), float(teknik), float(musim), float(penyakit), float(ph)]])
-        model = pickle.load(open('model_r03.pkl', 'rb'))
+            # Combine the values into a single array
+            data = np.array([[float(varietas), float(fosfor), float(boron), float(warna), float(rasa), float(teknik), float(musim), float(penyakit), float(ph)]])
+            model = pickle.load(open('model_r03.pkl', 'rb'))
 
-        pred = model.predict(data)
+            pred = model.predict(data)
+            prediction = prediction_mapping.get(pred[0], "Unknown")
 
-        # Map the prediction to class name
-        prediction = prediction_mapping.get(pred[0], "Unknown")
-
-        return render(request, 'index.html', {
-            'prediction': prediction
-        })
+    return render(request, 'predict-guest.html', {
+        'prediction': prediction
+    })
 
 # Create your views here.
 def index(request):
