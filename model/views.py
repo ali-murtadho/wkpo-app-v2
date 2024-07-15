@@ -79,19 +79,19 @@ class Preprocessing_read_csv:
         df = pd.read_csv(file_path)
         return df
     def data_train_real_three(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_latih_real_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_latih_real_data_1872_.csv')
         df = pd.read_csv(file_path)
         return df
     def data_test_real_three(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_uji_real_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_uji_real_data_1872_.csv')
         df = pd.read_csv(file_path)
         return df
     def data_train_model_three(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_latih_model_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_latih_smote_2060.csv')
         df = pd.read_csv(file_path)
         return df
     def data_test_model_three(self):
-        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_uji_model_03.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'model\data\data_uji_smote_2060.csv')
         df = pd.read_csv(file_path)
         return df
     def x_train_r_03(self):
@@ -208,20 +208,20 @@ def training(request):
     y_train_m_05 = Preprocessing_read_csv().y_train_m_05()
 
     if 'train' in request.POST:
-        best_model_m03 = DecisionTreeClassifier(max_depth=8).fit(x_train_m_03, y_train_m_03)
-        best_model_m04 = DecisionTreeClassifier(max_depth=8).fit(x_train_m_04, y_train_m_04)
-        best_model_m05 = DecisionTreeClassifier(max_depth=8).fit(x_train_m_05, y_train_m_05)
+        best_model_m03 = DecisionTreeClassifier().fit(x_train_m_03, y_train_m_03)
+        best_model_m04 = DecisionTreeClassifier().fit(x_train_m_04, y_train_m_04)
+        best_model_m05 = DecisionTreeClassifier().fit(x_train_m_05, y_train_m_05)
 
-        best_model_r03 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_03, y_train_r_03)
-        best_model_r04 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_04, y_train_r_04)
-        best_model_r05 = DecisionTreeClassifier(max_depth=8).fit(x_train_r_05, y_train_r_05)
+        best_model_r03 = DecisionTreeClassifier().fit(x_train_r_03, y_train_r_03)
+        best_model_r04 = DecisionTreeClassifier().fit(x_train_r_04, y_train_r_04)
+        best_model_r05 = DecisionTreeClassifier().fit(x_train_r_05, y_train_r_05)
         
-        pickle.dump(best_model_r03, open('model_r03.pkl', 'wb'))
-        pickle.dump(best_model_r04, open('model_r04.pkl', 'wb'))
-        pickle.dump(best_model_r05, open('model_r05.pkl', 'wb'))
-        pickle.dump(best_model_m03, open('model_m03.pkl', 'wb'))
-        pickle.dump(best_model_m04, open('model_m04.pkl', 'wb'))
-        pickle.dump(best_model_m05, open('model_m05.pkl', 'wb'))
+        pickle.dump(best_model_r03, open('model_r3.pkl', 'wb'))
+        pickle.dump(best_model_r04, open('model_r4.pkl', 'wb'))
+        pickle.dump(best_model_r05, open('model_r5.pkl', 'wb'))
+        pickle.dump(best_model_m03, open('model_m3.pkl', 'wb'))
+        pickle.dump(best_model_m04, open('model_m4.pkl', 'wb'))
+        pickle.dump(best_model_m05, open('model_m5.pkl', 'wb'))
 
         title = "Training Page"
         messages.success(request, 'Model berhasil di pickle!')
@@ -339,12 +339,12 @@ def testing(request):
             plt.close()
             return uri
         
-        cm_r03_image = plot_confusion_matrix(cm_r03, 'Confusion Matrix for R03')
-        cm_r04_image = plot_confusion_matrix(cm_r04, 'Confusion Matrix for R04')
-        cm_r05_image = plot_confusion_matrix(cm_r05, 'Confusion Matrix for R05')
-        cm_m03_image = plot_confusion_matrix(cm_m03, 'Confusion Matrix for M03')
-        cm_m04_image = plot_confusion_matrix(cm_m04, 'Confusion Matrix for M04')
-        cm_m05_image = plot_confusion_matrix(cm_m05, 'Confusion Matrix for M05')
+        cm_r03_image = plot_confusion_matrix(cm_r03, 'Confusion Matrix Sebelum SMOTE data latih : 1872')
+        cm_r04_image = plot_confusion_matrix(cm_r04, 'Confusion Matrix Sebelum SMOTE data latih : 1605')
+        cm_r05_image = plot_confusion_matrix(cm_r05, 'Confusion Matrix Sebelum SMOTE data latih : 1337')
+        cm_m03_image = plot_confusion_matrix(cm_m03, 'Confusion Matrix Sesudah SMOTE data latih : 2060')
+        cm_m04_image = plot_confusion_matrix(cm_m04, 'Confusion Matrix Sesudah SMOTE data latih : 1716')
+        cm_m05_image = plot_confusion_matrix(cm_m05, 'Confusion Matrix Sesudah SMOTE data latih : 1430')
 
 
         title = "Testing Page"
@@ -570,7 +570,7 @@ def prediction(request):
         # Combine the values into a single array
         # Varietas,fosfor,boron,Warna,rasa,teknik,Musim,Penyakit,PH
         data = np.array([[float(varietas), fosfor_scaled, boron_scaled, float(warna), float(rasa), float(teknik), float(musim), float(penyakit), float(ph)]])
-        model = pickle.load(open('model_m03.pkl', 'rb'))
+        model = pickle.load(open('model_m3.pkl', 'rb'))
 
         prediction = model.predict(data)
 
@@ -665,7 +665,11 @@ def prediction_real_for_guest(request):
         3: "Kelas D"
     }
 
+    prediction = None
+
     if request.method == 'POST' and 'predict' in request.POST:
+        try:
+            # Fetch form data
             varietas = request.POST['Varietas']
             warna = request.POST['Warna']
             rasa = request.POST['rasa']
@@ -681,11 +685,17 @@ def prediction_real_for_guest(request):
             model = pickle.load(open('model_r03.pkl', 'rb'))
 
             pred = model.predict(data)
+
+            # Map the prediction to class name
             prediction = prediction_mapping.get(pred[0], "Unknown")
 
+        except Exception as e:
+            prediction = f"Error: {str(e)}"
+        
     return render(request, 'predict-guest.html', {
         'prediction': prediction
     })
+
 
 # Create your views here.
 def index(request):
@@ -807,7 +817,7 @@ def excelPrediction(request):
         data = df[['Varietas', 'fosfor', 'boron', 'Warna', 'rasa', 'teknik', 'Musim', 'Penyakit', 'PH']].values
         
         # Load the model
-        model = pickle.load(open('model_m03.pkl', 'rb'))
+        model = pickle.load(open('model_m3.pkl', 'rb'))
 
         # Predict
         predictions = model.predict(data)
